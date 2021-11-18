@@ -6,18 +6,17 @@ namespace SimpleTransposition
 {
     class Program
     {
-        private static readonly TableDimension dim = new(3,5);
+        private static readonly TableDimension dim = new(10,5);
 
         static void Main()
         {
-            Encode("Hello World!");// I love you so much, let's stay in touch.");
+            Encode("Hello World! I love you so much, let's stay in touch.");
         }
 
         private static void Encode(in string message)
         {
-            var tableSize = dim.x * dim.y;
-            if (message.Length > tableSize)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {tableSize}");
+            if (message.Length > dim.x * dim.y)
+                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.x * dim.y}, but the string length = {message.Length}");
             
             StringBuilder sb = new();
 
@@ -27,15 +26,12 @@ namespace SimpleTransposition
                 var x = i / dim.y;
                 int idx = y + x + y * (dim.x - 1);
                 Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
+
+                if(idx < message.Length)
+                    sb.Append(message[idx]);
             }
 
-            //for (int x = 0; x != dim.x; x++)
-            //    for (int y = 0; y != dim.y; y++)
-            //    {
-
-            //    }
-
-
+            Console.WriteLine(sb.ToString());
 
             //var ar = new char[dim.x, dim.y];
 

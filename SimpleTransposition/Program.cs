@@ -20,11 +20,11 @@ namespace SimpleTransposition
             
             StringBuilder sb = new();
 
-            for(int i = 0; i != message?.Length; i++)
+            for (int i = 0; i != message?.Length; i++)
             {
                 var y = i % dim.y;
                 var x = i / dim.y;
-                int idx = dim.x * y + x;
+                int idx = y * dim.y + x;
                 Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
 
                 if (idx < message.Length)

@@ -6,11 +6,11 @@ namespace SimpleTransposition
 {
     class Program
     {
-        private static readonly TableDimension dim = new(10,5);
+        private static readonly TableDimension dim = new(3,5);
 
         static void Main()
         {
-            Encode("Hello World! I love you so much, let's stay in touch.");
+            Encode("Hello World");//! I love you so much, let's stay in touch.");
         }
 
         private static void Encode(in string message)
@@ -24,10 +24,10 @@ namespace SimpleTransposition
             {
                 var y = i % dim.y;
                 var x = i / dim.y;
-                int idx = y + x + y * (dim.x - 1);
+                int idx = dim.y * x + y;
                 Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
 
-                if(idx < message.Length)
+                if (idx < message.Length)
                     sb.Append(message[idx]);
             }
 

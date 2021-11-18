@@ -5,4 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="~%24Дайте как я потуплю как следует.xlsx" />
+  </ItemGroup>
+
 </Project>

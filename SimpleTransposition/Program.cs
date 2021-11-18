@@ -24,7 +24,7 @@ namespace SimpleTransposition
             {
                 var y = i % dim.y;
                 var x = i / dim.y;
-                int idx = dim.y * x + y;
+                int idx = dim.x * y + x;
                 Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
 
                 if (idx < message.Length)

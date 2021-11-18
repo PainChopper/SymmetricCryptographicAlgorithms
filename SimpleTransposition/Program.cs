@@ -10,7 +10,7 @@ namespace SimpleTransposition
 
         static void Main()
         {
-            Encode("Hello World");//! I love you so much, let's stay in touch.");
+            Encode("0123456789");//Hello World! I love you so much, let's stay in touch.");
         }
 
         private static void Encode(in string message)
@@ -20,18 +20,19 @@ namespace SimpleTransposition
             
             StringBuilder sb = new();
 
-            for (int i = 0; i != message?.Length; i++)
+            for (int i = 0; i != dim.x * dim.y; i++)
             {
                 var y = i % dim.y;
                 var x = i / dim.y;
-                int idx = y * dim.y + x;
-                Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
+                int idx = x * dim.y + y + 1;
+                if(y == 2 && x == 1) // 1 * 5 + 2 + 1 
+                    Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
 
                 if (idx < message.Length)
                     sb.Append(message[idx]);
             }
 
-            Console.WriteLine(sb.ToString());
+            //Console.WriteLine(sb.ToString());
 
             //var ar = new char[dim.x, dim.y];
 

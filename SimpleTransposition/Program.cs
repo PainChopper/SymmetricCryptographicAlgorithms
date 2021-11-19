@@ -5,21 +5,23 @@ namespace SimpleTransposition
 {
     class Program
     {
-        private static string message = "Hello World! I love you so much, let's stay in touch.";
+        private static string theMessage = "0123456789";
+        
+        //private static string message = "Hello World! I love you so much, let's stay in touch.";
 
         private static char aVerySpecialCharachter = '~';
         static void Main()
         {
             TableDimension dim = new(11, 5);
-            if (message.Length > dim.size)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {message.Length}");
+            if (theMessage.Length > dim.size)
+                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {theMessage.Length}");
 
-            Console.WriteLine($"->{message}<-");
+            Console.WriteLine($"->{theMessage}<-");
 
-            var encodedMessage = Encode(message, dim);
+            var encodedMessage = Encode(theMessage, dim);
             Console.WriteLine($"->{encodedMessage}<-");
 
-            var decodedMessage = Decode(message, dim);
+            var decodedMessage = Decode(encodedMessage, dim);
             Console.WriteLine($"->{decodedMessage}<-");
         }
 
@@ -45,12 +47,14 @@ namespace SimpleTransposition
 
             for (int i = 0; i != dim.size; i++)
             {
-                int idx = dim.x * (i % dim.y) + i / dim.x;
+                int idx = dim.x * (i % dim.y) + i / dim.y;
 
                 char v = idx < message.Length ? message[idx] : aVerySpecialCharachter;
                 sb.Append(v);
 
             }
+            sb.Replace(aVerySpecialCharachter, '\0');
+
             return sb.ToString();
         }
 

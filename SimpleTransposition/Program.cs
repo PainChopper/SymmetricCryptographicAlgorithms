@@ -20,12 +20,12 @@ namespace SimpleTransposition
 
         private static string Encode(in string message,in TableDimension dim)
         {
-            if (message.Length > dim.x * dim.y)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.x * dim.y}, but the string's length = {message.Length}");
+            if (message.Length > dim.size)
+                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {message.Length}");
             
             StringBuilder sb = new();
 
-            for (int i = 0; i != dim.x * dim.y; i++)
+            for (int i = 0; i != dim.size; i++)
             {
                 int idx = dim.y * (i % dim.x) + i / dim.x;
 
@@ -42,10 +42,12 @@ namespace SimpleTransposition
         {
             public readonly int x;
             public readonly int y;
+            public readonly int size;
             public TableDimension(int x, int y)
             {
                 this.x = x;
                 this.y = y;
+                size = x * y;
             }
         }
     }

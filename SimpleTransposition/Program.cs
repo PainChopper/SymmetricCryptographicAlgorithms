@@ -10,7 +10,12 @@ namespace SimpleTransposition
         {
             const string theMessage = "Hello World! I love you so much, let's stay in touch.";
 
+            // const string theMessage = null;
+
             TableDimension dim = new(11, 5);
+
+            _ = theMessage ?? throw new ArgumentNullException(nameof(theMessage));
+            
             if (theMessage.Length > dim.size)
                 throw new ArgumentOutOfRangeException(
                     $"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {theMessage.Length}");

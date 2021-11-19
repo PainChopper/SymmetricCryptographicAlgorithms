@@ -7,7 +7,7 @@ namespace SimpleTransposition
     {
         private static string theMessage = "Hello World! I love you so much, let's stay in touch.";
 
-        private static char aVerySpecialCharachter = '~';
+        private static char aVerySpecialCharachter = '\0';
         static void Main()
         {
             TableDimension dim = new(11, 5);
@@ -51,7 +51,6 @@ namespace SimpleTransposition
                 sb.Append(v);
 
             }
-            sb.Replace(aVerySpecialCharachter, '\0');
 
             return sb.ToString();
         }

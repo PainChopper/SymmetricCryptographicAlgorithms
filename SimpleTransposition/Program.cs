@@ -7,18 +7,18 @@ namespace SimpleTransposition
     {
         private static string theString = "Hello World! I love you so much, let's stay in touch.";
 
-        private static readonly TableDimension dim = new(11,5);
         private static char aVerySpecialCharachter = '~';
         static void Main()
         {
             Console.WriteLine($"->{theString}<-");
-            var encodedString = Encode(theString);
+            TableDimension dim = new(11, 5);
+            var encodedString = Encode(theString, dim);
             Console.WriteLine($"->{encodedString}<-");
             // раскодирую завтра.
             // надеюсь....
         }
 
-        private static string Encode(in string message)
+        private static string Encode(in string message,in TableDimension dim)
         {
             if (message.Length > dim.x * dim.y)
                 throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.x * dim.y}, but the string's length = {message.Length}");

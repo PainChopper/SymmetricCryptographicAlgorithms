@@ -5,9 +5,7 @@ namespace SimpleTransposition
 {
     class Program
     {
-        private static string theMessage = "0123456789";
-        
-        //private static string message = "Hello World! I love you so much, let's stay in touch.";
+        private static string theMessage = "Hello World! I love you so much, let's stay in touch.";
 
         private static char aVerySpecialCharachter = '~';
         static void Main()

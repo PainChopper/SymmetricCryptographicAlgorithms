@@ -24,16 +24,17 @@ namespace SimpleTransposition
             {
                 var y = i % dim.y;
                 var x = i / dim.y;
-                int idx = dim.y;
-                //if(y == 2 && x == 1) // 1 * 5 + 2 + 1 
-                // 9 = 5 * 1 + 3 + 1
-                Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
+                // В экселе так работает
+                // = 5 * MOD(I7, 3) + TRUNC(I7 / 3)
+                int idx = dim.y * (i % dim.x) + i / dim.x;
+
+                //Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
 
                 if (idx < message.Length)
                     sb.Append(message[idx]);
             }
 
-            //Console.WriteLine(sb.ToString());
+            Console.WriteLine(sb.ToString());
 
             //var ar = new char[dim.x, dim.y];
 

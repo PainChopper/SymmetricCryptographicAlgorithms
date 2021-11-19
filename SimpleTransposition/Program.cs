@@ -12,49 +12,34 @@ namespace SimpleTransposition
         {
             TableDimension dim = new(11, 5);
             if (theMessage.Length > dim.size)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {theMessage.Length}");
+                throw new ArgumentOutOfRangeException(
+                    $"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {theMessage.Length}");
 
             Console.WriteLine($"->{theMessage}<-");
 
-            var encodedMessage = Encode(theMessage, dim);
+            var encodedMessage = Code(theMessage, dim, 
+                (i, height, width) => height * (i % width) + i / width); 
             Console.WriteLine($"->{encodedMessage}<-");
 
-            var decodedMessage = Decode(encodedMessage, dim);
+            var decodedMessage = Code(encodedMessage, dim, 
+                (i, width, height) => height * (i % width) + i / width);
             Console.WriteLine($"->{decodedMessage}<-");
         }
 
-        private static string Encode(in string message,in TableDimension dim)
+        private static string Code(in string message, in TableDimension dim, Func<int, int, int, int> formula)
         {
             StringBuilder sb = new();
 
             for (int i = 0; i != dim.size; i++)
             {
-                int idx = dim.y * (i % dim.x) + i / dim.x;
-
-                char v = idx < message.Length ? message[idx]: aVerySpecialCharachter;
-                sb.Append(v);
-                    
-            }
-            return sb.ToString();
-        }
-
-        // Что-то мне подсказывает, что если "развернуть массив" (т.е. поменю иксы и игрики), и применить ту же формулу, то оно и сработет
-        private static string Decode(in string message, in TableDimension dim)
-        {
-            StringBuilder sb = new();
-
-            for (int i = 0; i != dim.size; i++)
-            {
-                int idx = dim.x * (i % dim.y) + i / dim.y;
+                int idx = formula(i, dim.y, dim.x);
 
                 char v = idx < message.Length ? message[idx] : aVerySpecialCharachter;
                 sb.Append(v);
 
             }
-
             return sb.ToString();
         }
-
 
         // Можно было бы использовать KeyValuePair но свойства Key и Value a little bit confusing in this context
         private struct TableDimension

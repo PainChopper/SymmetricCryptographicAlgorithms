@@ -5,11 +5,11 @@ namespace SimpleTransposition
 {
     class Program
     {
-        private static string theMessage = "Hello World! I love you so much, let's stay in touch.";
-
         private static char aVerySpecialCharachter = '\0';
         static void Main()
         {
+            const string theMessage = "Hello World! I love you so much, let's stay in touch.";
+
             TableDimension dim = new(11, 5);
             if (theMessage.Length > dim.size)
                 throw new ArgumentOutOfRangeException(

@@ -10,8 +10,11 @@ namespace SimpleTransposition
         private static char aVerySpecialCharachter = '~';
         static void Main()
         {
-            Console.WriteLine($"->{theString}<-");
             TableDimension dim = new(11, 5);
+            if (theString.Length > dim.size)
+                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {theString.Length}");
+
+            Console.WriteLine($"->{theString}<-");
             var encodedString = Encode(theString, dim);
             Console.WriteLine($"->{encodedString}<-");
             // раскодирую завтра.
@@ -20,9 +23,6 @@ namespace SimpleTransposition
 
         private static string Encode(in string message,in TableDimension dim)
         {
-            if (message.Length > dim.size)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.size}, but the string's length = {message.Length}");
-            
             StringBuilder sb = new();
 
             for (int i = 0; i != dim.size; i++)

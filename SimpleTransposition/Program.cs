@@ -1,58 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace SimpleTransposition
 {
     class Program
     {
-        private static readonly TableDimension dim = new(3,5);
+        private static string theString = "Hello World! I love you so much, let's stay in touch.";
 
+        private static readonly TableDimension dim = new(11,5);
+        private static char aVerySpecialCharachter = '~';
         static void Main()
         {
-            Encode("0123456789");//Hello World! I love you so much, let's stay in touch.");
+            Console.WriteLine($"->{theString}<-");
+            var encodedString = Encode(theString);
+            Console.WriteLine($"->{encodedString}<-");
+            // раскодирую завтра.
+            // надеюсь....
         }
 
-        private static void Encode(in string message)
+        private static string Encode(in string message)
         {
             if (message.Length > dim.x * dim.y)
-                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.x * dim.y}, but the string length = {message.Length}");
+                throw new ArgumentOutOfRangeException($"The string is too long. Maxmum allowed length = {dim.x * dim.y}, but the string's length = {message.Length}");
             
             StringBuilder sb = new();
 
             for (int i = 0; i != dim.x * dim.y; i++)
             {
-                var y = i % dim.y;
-                var x = i / dim.y;
-                // В экселе так работает
-                // = 5 * MOD(I7, 3) + TRUNC(I7 / 3)
                 int idx = dim.y * (i % dim.x) + i / dim.x;
 
-                //Console.WriteLine($"{i} => ({y}, {x}) => {idx}");
-
-                if (idx < message.Length)
-                    sb.Append(message[idx]);
+                char v = idx < message.Length ? message[idx]: aVerySpecialCharachter;
+                sb.Append(v);
+                    
             }
 
-            Console.WriteLine(sb.ToString());
-
-            //var ar = new char[dim.x, dim.y];
-
-            //for (int y = 0; y != dim.y; y++)
-            //    for (int x = 0; x != dim.x; x++)
-            //    {
-            //        int idx = y + x + y * (dim.x - 1);
-            //        Console.WriteLine($"({y}, {x}) = {idx}");
-            //        if (idx == message.Length)
-            //            return;
-            //        ar[x, y] = message[idx];
-            //    }
-
-            //        return sb.ToString();
-
-            //return sb.ToString();
+            return sb.ToString();
         }
 
+        // Можно было бы использовать KeyValuePair но свойства Key и Value a little bit confusing in this context
         private struct TableDimension
         {
             public readonly int x;
